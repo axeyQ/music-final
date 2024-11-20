@@ -1,0 +1,365 @@
+ [
+    {     
+        "title": "Aaj Ki Raat",
+        "artist": "Madhubanti Bagchi, Sachin-Jigar, Divya Kumar",
+        "album": "Stree 2",
+        "releaseYear": 2024,
+        "genre": "Indian Film Pop",
+        "duration": "3 min 48 sec"
+      ,
+      "lyrics": [
+        {
+          "section": "Verse 1",
+          "text": [
+            "Thodi fursat bhi meri jaan kabhi",
+            "Baahon ko deejiye",
+            "Thodi fursat bhi meri jaan kabhi",
+            "Baahon ko deejiye"
+          ]
+        },
+        {
+          "section": "Chorus",
+          "text": [
+            "Aaj ki raat maza husn ka",
+            "Aankhon se leejiye",
+            "Aaj ki raat maza husn ka",
+            "Aankhon se leejiye"
+          ]
+        },{
+        "section": "Verse 2",
+        "text": [
+          "Waqt barbaad na bin baat ki",
+          "Baaton mein keejiye",
+          "Waqt barbaad na bin baat ki",
+            "Baaton mein keejiye"
+
+
+        ]},
+        {
+          "section": "Chorus",
+          "text": [
+            "Aaj ki raat maza husn ka",
+            "Aankhon se leejiye",
+            "Aaj ki raat maza husn ka",
+            "Aankhon se leejiye"
+          ]
+        },{
+        "section": "Verse 3 X 2",
+        "text": ["Jaan ki qurbaani",
+                "Le le dilbar jaani",
+                "Tabaahi pakki hai",
+                "Aag tu main paani"]
+        },{
+          "section": "Verse 4 X 2",
+          "text": [
+            "Mere mehboob samjhaiye zara",
+            "Mauqe ki nazaakat"
+
+          ]},{
+            "section": "Verse 5 X 2",
+            "text": [
+              "Ke khareedi nahin jaa sakti",
+              "Haseenon ki ijaazat"   
+            ]},{
+              "section": "Verse 6",
+              "text": [
+                "Naaz itna .. meri jaan",
+                "Naaz itna bhi nahin",
+                "Khokhle vaadon pe keejiye"      
+              ]},
+              {
+                "section": "Chorus",
+                "text": [
+                  "Aaj ki raat maza husn ka",
+                  "Aankhon se leejiye",
+                  "Aaj ki raat maza husn ka",
+                  "Aankhon se leejiye"
+                ]
+              },{
+                "section": "Verse 7 X 2",
+                "text": [
+                  "Jaan ki qurbani",
+                  "Lele dilbar jaani",
+                  "Tabaahi pakki hai",
+                  "Aag tu main paani"
+                ]
+              }
+      ],
+      "images":["a1.jpg"]
+    },
+    {
+     
+        "title": "Tauba Tauba",
+        "artist": "Karan Aujla",
+        "album": "Bad Newz",
+        "releaseYear": 2024,
+        "genre": "Indian Film Pop",
+        "duration": "3 min 27 sec"
+      ,
+      "lyrics": [
+        {
+          "section": "Intro",
+          "text": [
+            "Uh, yeah, yeah, yeah",
+            "(Haan, tauba-tauba) Yeah Proof"
+          ]
+        },{
+          "section": "Chorus",
+          "text": [
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba"
+
+          ]
+        },
+        {
+          "section": "Verse 1",
+          "text": [
+            "Oh, lai liya kudi ne dil saada",
+            "Hale thoda saaf jiha nahi lagda iraada",
+            "Gutt baheli lambi ni rakhi hai muthiyaar ne",
+            "Hai dikhda paranda, nahi dikhda Prada (Stop)",
+            "Figure ton lagdi Latino",
+            "Ikk vaari dass do ji einni kyon shaukeen 'o",
+            "Kal hi tu Italy ton aayi, marjaaniye",
+            "Te purse tu Paris ton mangeya Valentino",
+            "Haan, tainu kyon na dikha?",
+            "Tere ton ki sikha? Tere te ki likha?"
+          ]
+        },
+        {
+          "section": "Chorus",
+          "text": [
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba"
+          ]
+        },{
+          "section":"Verse 2",
+          "text": [
+            "Sohniye, ni akh teri thief ai",
+            "Aera-gaera dekhdi nahi aidan ta shareef aa",
+            "Eithe kehndi too much desi",
+            "Taahi chill kare London te party Ibiza",
+            "Saade lai free nahi bhora lagdi",
+            "IG story ton taan Bora Bora lagdi",
+            "'Waj teri, sohniye, surilee Noori wargi",
+            "Jado lak hilda odon ta Nora lagdi",
+            "Haan, milna dassde",
+            "Koi thaan dassde, meri jaan, dassde"
+          ]
+        },{
+          "section": "Chorus",
+          "text": [
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba"
+          ]
+        },{
+          "section": "Verse 3",
+          "text":["Haaye, mitran ton akh teri mange kangna",
+                  "Hune main bana daan, mainu dass taan sahi",
+                  "Jaan mang la, main taithon jaan vaar daan",
+                  "Aape nikloogi, ni tu has taan sahi",
+                  "Haaye, tere vich nasha pehle tod da, kure",
+                  "Sohniye, sharaab da taan naam lagda",
+                  "Saade ton charhai teri vadh ho gayi",
+                  "Nikle taan sadkan te jaam lagda",
+                  "Haan, gall maan meri",
+                  "Mehmaan meri, tu ai jaan meri"
+        ]
+        },{
+          "section": "Chorus",
+          "text": [
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba",
+            "Husn tera tauba-tauba, tauba-tauba"
+          ]
+        }
+      ],
+      "images":["b1.jpg"]
+    },
+    {
+      
+        "title": "Sajni",
+        "artist": "Ram Sampath & Arijit Singh",
+        "album": "Laapataa Ladies",
+        "releaseYear": 2024,
+        "genre": "Indian Film Pop",
+        "duration": "2 min 50 sec"
+      ,
+      "lyrics": [
+        {
+          "section": "Chorus",
+          "text": [
+            "Oh sajni re",
+            "Kaise kate din raat?",
+            "Kaise ho tujhse baat?",
+            "Teri yaad satave re"
+          ]
+        },
+        {
+          "section": "Chorus",
+          "text": [
+            "Oh sajni re",
+            "Kaise kate din raat?",
+            "Kese milein tera sath",
+            "Teri yaad, teri yaad satave re"
+          ]
+        },
+        {
+          "section": "Verse 1",
+          "text": [
+            "Kaisey ghane re badhra girey",
+            "Teri kami ki baarish liye",
+            "Sailaab joh mere seene mein hai",
+            "Koyi bataye ye kaisey thamein",
+            "Tere bina abb kese jiye"
+          ]
+        } ,{
+          "section": "Chorus",
+          "text": [
+            "Oh sajni re",
+            "Kaise kate din raat?",
+            "Kaise ho tujhse baat?",
+            "Teri yaad satave re"
+          ]
+        },  {
+          "section": "Chorus",
+          "text": [
+            "Oh sajni re",
+            "Kaise kate din raat?",
+            "Kese milein tera sath",
+            "Teri yaad, teri yaad satave re"
+          ]
+        },{
+          "section":"Outro",
+          "text": [
+            "Oh sajni re"
+          ]
+        }
+      ],
+      "images":["c1.jpg"]
+    },
+    {
+    
+        "title": "Zaroorat Se Zyada",
+        "artist": "Arijit Singh & Amaal Malik",
+        "album": "Vedaa",
+        "releaseYear": 2024,
+        "genre": "Indian Film Pop",
+        "duration": "5 min 36 sec"
+      ,
+      "lyrics": [
+        {
+          "section": "Intro",
+          "text": [
+            "Tu Jane Na Jane Hai Tere Deewane",
+            "Tujhi Ko Hai Mana Sanam",
+            "Tere Pass Aane Ke Dhudhu Bahane",
+            "Jara Tu Badha Ek Kadam"
+          ]
+        },
+        {
+          "section":"Verse 1",
+          "text": [
+            "Kya Dil Chahta Hai Na Puchu Hume Tum",
+            "Bas Itna Pata Hai Kisi Ke Nahi Honge Hum",
+            "Zaroorat Se Zyada Hua Mein Tumhara",
+            "Na Ab Pyar Hoga Na Kam",
+            "Bana Na Sake Jo Tumhe Hum Hamara",
+            "To Lenge Dobara Janam",
+            "To Lenge Dobara Janam"
+
+          ]
+        },{
+          "section":"Verse 2",
+          "text":[
+            "Kuch Batana Tha Tumhe Jo Kabhi Na Keh Saka",
+            "Aane Mein Deri Huyi Me Jara Hi Door Tha",
+            "Ek Adhure Mod Pe Reh Gaya Ye Silsila",
+            "Ab Use Samet Le Jo Bhi Baki Hai Bacha"
+          ]
+        },{
+          "section":"Verse 3",
+          "text":[
+            "Mujhe Muskurana Sikhate Sikhate",
+            "Bata De Kaha Tu Chala Chod Ke Aankhein Nam"
+          ]
+        }
+        ,{
+          "section": "Outro",
+          "text": [
+            "Zaroorat Se Zyada Hua Mein Tumhara",
+            "Na Ab Pyar Hoga Na Kam",
+            "Bana Na Sake Jo Tumhe Hum Hamara",
+            "To Lenge Dobara Janam",
+            "To Lenge Dobara Janam"
+
+          ]
+        }
+      ],
+      "images":["d1.jpg"]
+    },
+    {
+  
+        "title": "Tainu Khabar Nahi",
+        "artist": "Arijit Singh",
+        "album": "Munjya",
+        "releaseYear": 2024,
+        "genre": "Indian Film Pop",
+        "duration": "3 min 8 sec"
+      ,
+      "lyrics": [
+        {
+          "section": "Chorus X 2",
+          "text": [
+            "Maine chaha tujhe meri khata nhi",
+            "Meri khata hai ki tujhe pta nhi"
+          ]
+        },
+        {
+          "section": "Verse 1 X 2",
+          "text": [
+            "Tere naal tere naal preetaan laaiyan",
+            "Ve maahi tainu khabar nahi"
+          ]
+        },
+        {
+          "section": "Verse 2 X 2",
+          "text": [
+            "Ho kinne saal intezaar mein bitaiyan",
+            "Ve maahi tainu khabar nahi"
+          ]
+        }, {
+          "section": "Chorus X 2",
+          "text": [
+            "Maine chaha tujhe meri khata nhi",
+            "Meri khata hai ki tujhe pta nhi"
+          ]
+        },{
+          "section":"Verse 3",
+          "text":[
+            "Puchde ne mere yaar purane",
+            "Ki ho gaya, ki ho gaya, ki ho gaya ho",
+            "Tere nahi kyun hosh thikaane",
+            "Ki ho gaya, ki ho gaya, ki ho gaya ho",
+            "Kamle nu tere hor kise di",
+            "Kamle nu tere hor kise di load te fikar nahi"
+          ]
+        }, {
+          "section": "Chorus X 2",
+          "text": [
+            "Maine chaha tujhe meri khata nhi",
+            "Meri khata hai ki tujhe pta nhi"
+          ]
+        }
+      ],
+      "images":["e1.jpg"]
+    }
+  ]
+
