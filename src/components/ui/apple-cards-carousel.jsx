@@ -262,16 +262,7 @@ export const Card = ({
           <h1>Lyrics</h1>
             
             <div className="mt-3">
-              {card.lyrics.map((lyric,index)=>(
-                <div key={index} className="my-10">
-                  <h1 className=" text-lg">[ {lyric.section} ]</h1>
-                  {
-                    lyric.text.map((line,index)=>(
-                      <p  key={index} className="text-neutral-600 text-lg  font-sans max-w-3xl">{line}</p>
-                    ))
-                  }
-                </div>
-              ))}
+              {card.lyrics}
             </div>
           </div>
             </div>
@@ -282,9 +273,9 @@ export const Card = ({
     <motion.button
       layoutId={layout ? `card-${card.title}` : undefined}
       onClick={handleOpen}
-      className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10">
+      className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 group">
       <div
-        className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
+        className="absolute h-full top-0 inset-x-0 bg-black bg-opacity-50 bg-gradient-to-b group-hover:bg-opacity-80 transition-bg-opacity duration-300 from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
       <div className="relative z-40 p-8">
         <motion.p
           layoutId={layout ? `artist-${card.artist}` : undefined}
@@ -301,7 +292,7 @@ export const Card = ({
         src={`/images/${card.images[0]}`}
         alt={card.title}
         fill
-        className="object-cover absolute z-10 inset-0" />
+        className="object-cover absolute z-10 inset-0 blur-5" />
     </motion.button>
   </>);
 };

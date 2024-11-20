@@ -20,8 +20,11 @@ function Navbar({
     (<div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 dark", className)}>
       <Menu setActive={setActive}>
-        <Link className="text-white" href="/"><h1 className=" text-xl font-bold">Music Munch</h1></Link>
-        <div className="flex justify-center items-center gap-10">
+<Link className="text-white" href="/search"><h1 className="text-lg">Search</h1></Link>
+        <Link className="text-white" href="/"><h1 className=" text-2xl font-bold">Musify</h1></Link>
+        <Link className="text-white" href="/add"><h1 className="text-lg">Contribute</h1></Link>
+
+        {/* <div className="flex justify-center items-center gap-10">
         <MenuItem setActive={setActive} active={active} item="Explore">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/add">Contribute</HoveredLink>
@@ -29,8 +32,8 @@ function Navbar({
             <HoveredLink href="/">Sign Up</HoveredLink>
           </div>
         </MenuItem>
-        <Link className="text-white" href="/search"><h1 className="">Search</h1></Link>
-        </div>
+       
+        </div> */}
       </Menu>
     </div>)
   );

@@ -13,9 +13,7 @@ const MusicDetailsSchema = new Schema({
         type: String,
     },
     artist: {
-        type: Schema.Types.ObjectId, // Reference to Artist
-        ref: "Artist",
-        required: true,
+        type: String,
     },
     album:{
         type: String,

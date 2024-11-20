@@ -4,9 +4,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SearchInput from "@/components/SearchInput";
-import { MusicCards } from "@/components/MusicCards";
+import { NetflixTypeMusicCard } from "@/components/NetflixTypeMusicCard";
 
-export default function HomePage() {
+export default function SearchComponent() {
   const [musicData, setMusicData] = useState([]);
   const [filteredMusic, setFilteredMusic] = useState([]);
 
@@ -30,26 +30,27 @@ export default function HomePage() {
       return;
     }
 
-    const filtered = musicData.filter(
-      (music) =>
-        music.title.toLowerCase().includes(query.toLowerCase()) ||
-        music.artist.toLowerCase().includes(query.toLowerCase())
-    );
+    const filtered = musicData.filter((music) => {
+      const title = music.title?.toLowerCase() || ""; // Default to empty string if undefined
+      const artist = music.artist?.toLowerCase() || ""; // Default to empty string if undefined
+      return title.includes(query.toLowerCase()) || artist.includes(query.toLowerCase());
+    });
+
     setFilteredMusic(filtered);
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white">
       <h1 className="text-4xl font-bold text-center py-10">Music Search</h1>
       <SearchInput onSearch={handleSearch} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 p-8">
         {filteredMusic.length === 0 ? (
           <p className="col-span-full text-center text-lg text-gray-400">
             No results found
           </p>
         ) : (
           filteredMusic.map((music) => (
-            <MusicCards key={music._id} music={music} />
+            <NetflixTypeMusicCard key={music._id} music={music} />
           ))
         )}
       </div>

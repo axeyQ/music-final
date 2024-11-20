@@ -21,7 +21,7 @@ export function Hero() {
         </div>
         <div
           className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
-          And Yeah, Contribute
+          And Yeah, Contribute and Earn
         </div>
         <Button
           borderRadius="1.75rem"
