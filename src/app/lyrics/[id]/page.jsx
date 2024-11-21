@@ -20,7 +20,7 @@ const SongDetails = async ({ params }) => {
 
         <div className="w-full p-6 rounded-lg shadow-lg px-40 z-10">
           <h2 className="text-2xl font-semibold mb-4">Lyrics</h2>
-          <pre className="text-gray-300 whitespace-pre-wrap">{song.lyrics}</pre>
+          <pre className="text-gray-300 whitespace-pre-wrap font-poppins">{song.lyrics}</pre>
         </div>
   <div></div>
         </div>
