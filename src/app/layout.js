@@ -2,6 +2,13 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { NavbarMain } from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+});
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,7 +31,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-900`}
+        className={`${poppins.className} antialiased bg-zinc-900`}
       >
       <NavbarMain className=" bg-slate-600"/>
       <Toaster position="top-center" />

@@ -19,7 +19,7 @@ const SearchInput = ({ onSearch }) => {
         value={query}
         onChange={handleChange}
         placeholder="Search for music..."
-        className="w-full p-3 bg-gray-800 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+        className="w-full p-3 bg-gray-800 text-white rounded-lg border border-white-600 focus:outline-none focus:ring-2 focus:ring-white-500"
       />
     </div>
   );

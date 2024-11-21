@@ -64,6 +64,10 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        pulseGlow: {
+          '0%': { boxShadow: '0 0 0 0 rgba(193, 244, 246, 0.7)' },
+          '100%': { boxShadow: '0 0 0 45px rgba(193, 244, 246, 0)' },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -90,6 +94,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "aurora": "aurora 60s linear infinite",
         move: "move 5s linear infinite",
+        pulseGlow: 'pulseGlow 3s cubic-bezier(0.8, 0, 0, 1) infinite',
       },
     },
   },

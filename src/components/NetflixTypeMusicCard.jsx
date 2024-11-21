@@ -4,6 +4,7 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import Link from "next/link";
+import UtilButtons from "./UtilButtons";
 
 export function NetflixTypeMusicCard({music}) {
   const [active, setActive] = useState(null);
@@ -125,18 +126,7 @@ export function NetflixTypeMusicCard({music}) {
                   Explore
                 </Link>
               </div>
-              <div className="pt-4 relative px-4">
-                <motion.div
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
-                  {typeof music.content === "function"
-                    ? music.content()
-                    : music.content}
-                </motion.div>
-              </div>
+              <UtilButtons music={music} />
             </div>
           </motion.div>
         </div>
@@ -158,11 +148,11 @@ export function NetflixTypeMusicCard({music}) {
                 alt={music.title}
                 className="h-60 w-full  rounded-lg object-cover object-top" />
             </motion.div>
-            <div className="flex justify-center items-center flex-col absolute inset-0 bg-black bg-opacity-70 opacity-70 group-hover:opacity-0 transition-opacity duration-300"></div>
+            <div className="flex justify-center items-center flex-col absolute inset-0 bg-black bg-opacity-60 opacity-60 group-hover:opacity-0 transition-opacity duration-300"></div>
             <div className="flex justify-center items-center flex-col absolute inset-0 bg-black bg-opacity-80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <motion.h3
                 layoutId={`title-${music.title}-${id}`}
-                className=" font-medium  text-white dark:text-neutral-200 text-center md:text-center text-2xl">
+                className=" font-medium  text-white dark:text-neutral-200 text-center md:text-center text-3xl">
                 {music.title}
               </motion.h3>
               <motion.p
@@ -172,6 +162,7 @@ export function NetflixTypeMusicCard({music}) {
               </motion.p>
             </div>
           </div>
+
         </motion.div>
     </ul>
   </>);

@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Button } from "./ui/moving-border";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import PlayAnimation from "./PlayAnimation";
 
 export function Hero() {
   return (
@@ -16,8 +19,9 @@ export function Hero() {
           ease: "easeInOut",
         }}
         className="relative flex flex-col gap-4 items-center justify-center px-4">
-        <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
+        <div className=" text-8xl md:text-8xl font-bold relative leading-5 z-10 dark:text-white text-center">
           Search Lyrics, Explore and <br/>Have Much More
+          <PlayAnimation />
         </div>
         <div
           className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
@@ -27,7 +31,7 @@ export function Hero() {
           borderRadius="1.75rem"
           className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 font-semibold"
           >
-          Explore Now
+          Explore Now&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faPlay}/>
         </Button>
         
       </motion.div>

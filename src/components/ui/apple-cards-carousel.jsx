@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import UtilButtons from "../UtilButtons";
 
 export const CarouselContext = createContext({
   onCardClose: () => {},
@@ -205,17 +206,7 @@ export const Card = ({
             <div className="py-10">
             <div
           className="bg-[#F5F5F7] p-8 md:p-14 rounded-3xl mb-4">
-          {/* <p
-            className="text-neutral-600 text-base md:text-2xl font-sans max-w-3xl mx-auto">
-            <span className="font-bold text-neutral-700">
-              The first rule of Apple club is that you boast about Apple club.
-            </span>{" "}
-            Keep a journal, quickly jot down a grocery list, and take amazing
-            class notes. Want to convert those notes to text? No problem.
-            Langotiya jeetu ka mara hua yaar is ready to capture every
-            thought.
-          </p> */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center gap-4">
 
           <Image
             src={`/images/${card.images[0]}`}
@@ -223,8 +214,8 @@ export const Card = ({
             height="300"
             width="300"
             className="md:w-1/2 md:h-1/2 h-1/2 w-full object-contain" />
-
-            <ul>
+          <div className="flex flex-col items-start gap-4">
+            <ul className="px-4">
               <li><p
             className="text-neutral-600 text-base md:text-2xl font-sans max-w-3xl mx-auto">
             <span className="font-bold text-neutral-700">
@@ -254,6 +245,8 @@ export const Card = ({
             {card.duration}
           </p></li>
             </ul>
+            <UtilButtons music={card} />
+            </div>
           </div>
 
       
@@ -262,7 +255,10 @@ export const Card = ({
           <h1>Lyrics</h1>
             
             <div className="mt-3">
+            <h1 className="whitespace-pre-wrap font-medium text-xl">
+
               {card.lyrics}
+            </h1>
             </div>
           </div>
             </div>
@@ -273,18 +269,18 @@ export const Card = ({
     <motion.button
       layoutId={layout ? `card-${card.title}` : undefined}
       onClick={handleOpen}
-      className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 group">
+      className="rounded-3xl bg-black dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 group">
       <div
-        className="absolute h-full top-0 inset-x-0 bg-black bg-opacity-50 bg-gradient-to-b group-hover:bg-opacity-80 transition-bg-opacity duration-300 from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
+        className="absolute h-full top-0 inset-x-0 bg-black bg-opacity-60 bg-gradient-to-b group-hover:bg-opacity-80 transition-bg-opacity duration-300 from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
       <div className="relative z-40 p-8">
         <motion.p
           layoutId={layout ? `artist-${card.artist}` : undefined}
-          className="text-white text-sm md:text-base font-medium font-sans text-left">
+          className=" font-light text-white text-sm md:text-base font-sans text-left">
           {card.artist}
         </motion.p>
         <motion.p
           layoutId={layout ? `title-${card.title}` : undefined}
-          className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2">
+          className="text-white text-5xl md:text-5xl leading-10 font-light max-w-xs text-left [text-wrap:balance] font-sans mt-2">
           {card.title}
         </motion.p>
       </div>
