@@ -25,7 +25,8 @@ export function NetflixTypeMusicCard({music}) {
     }
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {window.removeEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "auto";}
   }, [active]);
 
   useOutsideClick(ref, () => setActive(null));

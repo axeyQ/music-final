@@ -19,7 +19,7 @@ const UtilButtons = ({music}) => {
           exit={{ opacity: 0 }}
           href={{pathname:`/lyrics/${music._id}`, query: {scrollTo: 'music-video'}}}
           className="px-4 py-1 text-sm rounded-full font-bold bg-blue-500 text-white"
-          target="_blank"
+          scroll={false}
           >
           Music Video
         </Link>
@@ -29,8 +29,8 @@ const UtilButtons = ({music}) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          target="_blank"
           href={{pathname:`/lyrics/${music._id}`, query: {scrollTo: 'instrumentals'}}}
+          scroll={false}
           className="px-4 py-1 text-sm rounded-full font-bold bg-blue-500 text-white">
           Instrumentals
         </Link>
@@ -40,8 +40,8 @@ const UtilButtons = ({music}) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          target="_blank"
           href={{pathname:`/lyrics/${music._id}`, query: {scrollTo: 'karaoke'}}}
+          scroll={false}
           className="px-4 py-1 text-sm rounded-full font-bold bg-blue-500 text-white">
           Karaoke
         </Link>
@@ -51,8 +51,8 @@ const UtilButtons = ({music}) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          target="_blank"
           href={{pathname:`/lyrics/${music._id}`, query: {scrollTo: 'covers'}}}
+          scroll={false}
           className="px-4 py-1 text-sm rounded-full font-bold bg-blue-500 text-white">
           Covers
         </Link>
@@ -62,8 +62,8 @@ const UtilButtons = ({music}) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          target="_blank"
           href={{pathname:`/lyrics/${music._id}`, query: {scrollTo: 'dance'}}}
+          scroll={false}
           className="px-4 py-1 text-sm rounded-full font-bold bg-blue-500 text-white">
           Dance
         </Link>

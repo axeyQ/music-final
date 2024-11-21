@@ -3,6 +3,7 @@ import axios from "axios";
 import LyricsHeader from "@/components/LyricsHeader";
 import YoutubePlayer from "@/components/YoutubePlayer";
 import YoutubePlayerGroup from "@/components/YoutubePlayerGroup";
+import ScrollHandler from "@/components/ScrollHandler";
 
 const SongDetails = async ({ params }) => {
   const { id } = await params;
@@ -13,6 +14,7 @@ const SongDetails = async ({ params }) => {
 
     return (
       <div className="min-h-screen bg-black text-white flex flex-col items-center pt-24 px-40">
+      <ScrollHandler />
         <LyricsHeader song={song} />
         <div className="flex justify-start w-screen ">
 
@@ -20,7 +22,7 @@ const SongDetails = async ({ params }) => {
           <h2 className="text-2xl font-semibold mb-4">Lyrics</h2>
           <pre className="text-gray-300 whitespace-pre-wrap">{song.lyrics}</pre>
         </div>
-<div></div>
+  <div></div>
         </div>
 
         <div className="flex flex-col items-center w-screen p-20 gap-20">
@@ -31,26 +33,25 @@ const SongDetails = async ({ params }) => {
 
           <YoutubePlayer url={song.musicVideo} />
         </div>
+        {song?.instrumentals?.length > 0 && (
+          <YoutubePlayerGroup url={song.instrumentals} id={'instrumentals'} text={'Watch the Instrumentals'} />
+          
+        )}  
+
+        {song?.karaoke?.length > 0 && (
+          <YoutubePlayerGroup url={song.karaoke} id={'karaoke'} text={'Watch the Karaokes and Sing along!'} />
+        )}
+
+        {song?.dance?.length > 0 && (
+          <YoutubePlayerGroup url={song.dance} id={'dance'} text={'Watch the Dance tutorials and dance along!'} />
+        )}
+
+        {song?.covers?.length > 0 && (
+          <YoutubePlayerGroup url={song.covers} id={'covers'} text={'Wanna hear the song in a new flavour, here are the covers'} />
+        )}
 
 
-        {
-          song?.karaoke?.length ===0 ? <div></div> :  
-        <YoutubePlayerGroup url={song.karaoke} id={'karaoke'} text={'Watch the Karaokes and Sing along!'} />
-        }
-
-        {
-          song?.dance?.length ===0 ? <div></div> :  
-        <YoutubePlayerGroup url={song.dance} id={'dance'} text={'Watch the Dance tutorials and dance along!'} />
-        }
-
-        {
-          song?.covers?.length ===0 ? <div></div> :  
-        <YoutubePlayerGroup url={song.covers} id={'covers'} text={'Wanna hear the song in a new flavour, here are the covers'} />
-        }
-        {
-          song?.instrumentals?.length ===0 ? null :  
-        <YoutubePlayerGroup url={song.instrumentals} id={'instrumentals'} text={'Watch the Instrumentals'} />
-        }
+        
 
 
         
