@@ -1,14 +1,12 @@
 // app/song/[id]/page.js
-import React from "react";
 import axios from "axios";
 import LyricsHeader from "@/components/LyricsHeader";
-import YouTubeEmbed from "@/components/YoutubeEmbed";
 import YoutubePlayer from "@/components/YoutubePlayer";
 import YoutubePlayerGroup from "@/components/YoutubePlayerGroup";
 
 const SongDetails = async ({ params }) => {
   const { id } = await params;
-
+  
   try {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_DOMAIN}/song/${id}`);
     const song = res.data;
@@ -31,17 +29,28 @@ const SongDetails = async ({ params }) => {
 
           <h1 className="text-4xl font-bold text-center mb-10" id="music-video">Watch the Official Music Video</h1>
 
-          <YoutubePlayer url={'https://www.youtube.com/watch?v=u0o9YEDafy4'} />
+          <YoutubePlayer url={song.musicVideo} />
         </div>
 
-        <YoutubePlayerGroup url={'https://www.youtube.com/watch?v=u0o9YEDafy4'} id={'instrumentals'} text={'Watch the Instrumentals'} />
-        
-        <YoutubePlayerGroup url={'https://www.youtube.com/watch?v=u0o9YEDafy4'} id={'karaoke'} text={'Watch the Karaokes and Sing along!'} />
 
-        <YoutubePlayerGroup url={'https://www.youtube.com/watch?v=u0o9YEDafy4'} id={'dance'} text={'Watch the Dance tutorials and dance along!'} />
+        {
+          song?.karaoke?.length ===0 ? <div></div> :  
+        <YoutubePlayerGroup url={song.karaoke} id={'karaoke'} text={'Watch the Karaokes and Sing along!'} />
+        }
 
-        <YoutubePlayerGroup url={'https://www.youtube.com/watch?v=u0o9YEDafy4'} id={'covers'} text={'Wanna hear the song in a new flavour, here are the covers'} />
+        {
+          song?.dance?.length ===0 ? <div></div> :  
+        <YoutubePlayerGroup url={song.dance} id={'dance'} text={'Watch the Dance tutorials and dance along!'} />
+        }
 
+        {
+          song?.covers?.length ===0 ? <div></div> :  
+        <YoutubePlayerGroup url={song.covers} id={'covers'} text={'Wanna hear the song in a new flavour, here are the covers'} />
+        }
+        {
+          song?.instrumentals?.length ===0 ? null :  
+        <YoutubePlayerGroup url={song.instrumentals} id={'instrumentals'} text={'Watch the Instrumentals'} />
+        }
 
 
         
@@ -50,6 +59,9 @@ const SongDetails = async ({ params }) => {
     );
   } catch (error) {
     console.error("Error fetching song details:", error);
+    console.log("NEXT_PUBLIC_API_DOMAIN:", process.env.NEXT_PUBLIC_API_DOMAIN);
+console.error("Error fetching song details:", error.response?.data || error.message || error);
+
     return (
       <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
         <p className="text-xl text-red-500">Failed to load song details.</p>

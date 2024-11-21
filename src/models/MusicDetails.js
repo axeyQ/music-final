@@ -27,19 +27,27 @@ const MusicDetailsSchema = new Schema({
     duration:{
         type: String,
     },
-    // lyrics:[{
-    //     section:{
-    //         type: String,
-    //         required: false,
-    //     },
-    //     text:[lyricsSchema]
-    // }],
     images:[{
         type:String,
     }],
     lyrics:{
         type:String,
-    }
+    },
+    musicVideo:{
+        type:String,
+    },
+    instrumentals:[{
+        type:String,
+    }],
+    karaoke:[{
+        type:String,
+    }],
+    dance:[{
+        type:String,
+    }],
+    covers:[{
+        type:String,
+    }]
 
     
 },

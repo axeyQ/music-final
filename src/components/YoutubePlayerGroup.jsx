@@ -5,11 +5,11 @@ const YoutubePlayerGroup = ({url, text, id}) => {
 
         <h1 className="text-4xl font-bold text-center mb-10">{text}</h1>
         <div className="flex flex-row gap-10 flex-wrap">
-
-        <YoutubePlayer url={url} />
-        <YoutubePlayer url={url} />
-        <YoutubePlayer url={url} />
-        <YoutubePlayer url={url} />
+        { 
+          url.map((uri) => (
+            <YoutubePlayer url={uri} key={uri} />
+          ))
+        }
         </div>
 
       </div> );

@@ -18,9 +18,9 @@ export function Hero() {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="relative flex flex-col gap-4 items-center justify-center px-4">
+        className=" relative flex flex-col gap-4 items-center justify-center px-4">
         <div className=" text-8xl md:text-8xl font-bold relative leading-5 z-10 dark:text-white text-center">
-          Search Lyrics, Explore and <br/>Have Much More
+          Search Trending Music, Lyrics<br/>and Much More
           <PlayAnimation />
         </div>
         <div
