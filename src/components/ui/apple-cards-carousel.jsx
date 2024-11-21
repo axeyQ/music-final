@@ -212,7 +212,7 @@ export const Card = ({
           <div className="flex justify-between items-center gap-4">
 
           <Image
-            src={`/images/${card.images[0]}`}
+            src={card.images[0]}
             alt="Album Image"
             height="300"
             width="300"
@@ -288,7 +288,7 @@ export const Card = ({
         </motion.p>
       </div>
       <BlurImage
-        src={`/images/${card.images[0]}`}
+        src={card.images[0]}
         alt={card.title}
         fill
         className="object-cover absolute z-10 inset-0 blur-5" />

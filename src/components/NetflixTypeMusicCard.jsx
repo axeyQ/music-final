@@ -72,7 +72,7 @@ export function NetflixTypeMusicCard({music}) {
                 priority
                 width={500}
                 height={500}
-                src={`/images/${music.images[0]}`}
+                src={music.images[0]}
                 alt={music.title}
                 className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top" />
             </motion.div>
@@ -122,7 +122,6 @@ export function NetflixTypeMusicCard({music}) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   href={`/lyrics/${music._id}`}
-                  target="_blank"
                   className="px-4 py-3 text-sm rounded-full font-bold bg-blue-500 text-white">
                   Explore
                 </Link>
@@ -145,7 +144,7 @@ export function NetflixTypeMusicCard({music}) {
               <Image
                 width={250}
                 height={250}
-                src={`/images/${music.images[0]}`}
+                src={music.images[0]}
                 alt={music.title}
                 className="h-60 w-full  rounded-lg object-cover object-top" />
             </motion.div>

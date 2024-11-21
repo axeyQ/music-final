@@ -1,4 +1,4 @@
-import localFont from "next/font/local";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 import { NavbarMain } from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
@@ -22,6 +22,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${poppins.className} antialiased bg-zinc-900`}
       >
+      <SpeedInsights />
       <NavbarMain className=" bg-slate-600"/>
       <Toaster position="top-center" />
         {children}

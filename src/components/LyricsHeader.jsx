@@ -7,7 +7,7 @@ const LyricsHeader = ({ song }) => {
         <Vortex >
     <div className="flex justify-start w-full items-center gap-20">
           <Image
-            src={`/images/${song.images[0]}`}
+            src={song.images[0]}
             alt={song.title}
             width={1000}
             height={1000}
