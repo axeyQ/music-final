@@ -38,9 +38,17 @@ function Navbar({
         {session ? (
           <Link className="text-white" href="/add"><h1 className="md:text-lg text-sm">Contribute</h1></Link>
         ) : (
-          providers && Object.values(providers).map((provider) => (
-            <button className="text-white" key={provider.id} onClick={()=>signIn(provider.id)}><h1 className="md:text-lg text-sm">Contribute</h1></button>
-          ))
+          providers ? (
+            Object.values(providers).map((provider) => (
+              <button className="text-white" key={provider.id} onClick={() => signIn(provider.id)}>
+                <h1 className="md:text-lg text-sm">Contribute</h1>
+              </button>
+            ))
+          ) : (
+            <button className="text-white" onClick={() => signIn()}>
+              <h1 className="md:text-lg text-sm">Contribute</h1>
+            </button>
+          )
         )}
 
         {/* <div className="flex justify-center items-center gap-10">
