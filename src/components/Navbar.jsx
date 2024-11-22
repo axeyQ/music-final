@@ -44,18 +44,7 @@ function Navbar({
       image:
         "/images/newRed.png",
     },]
-    let loggedIn = null;
-    if(session){  
-      loggedIn =[
-        {
-        id: 1,
-        name: session.user.name,
-        designation: "The Contributer",
-        image:
-          session.user.image,
-      },
-    ]
-  }
+    const profileImage = session?.user?.image;
   return (
     (<div
       className={cn("fixed top-10 inset-x-0 max-w-2xl md:w-full w-96 mx-auto z-50 dark ", className)}>
@@ -82,7 +71,7 @@ function Navbar({
 {
   session ? (
 
-    <MenuItem setActive={setActive} active={active} item={loggedIn.image}>
+    <MenuItem setActive={setActive} active={active} item={profileImage}>
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/add">Your Profile</HoveredLink>
             <HoveredLink href="#" onClick={() => signOut()}>Log Out</HoveredLink>

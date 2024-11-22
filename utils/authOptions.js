@@ -33,7 +33,7 @@ export const authOptions = {
                 })
             }
             // 4. Return true to allow sign in
-            return '/add';
+            return true;
         },
 
         // Session callback function that modifies the session object
@@ -45,5 +45,8 @@ export const authOptions = {
             // 3. Return session
             return session;
         }
+    },
+    pages: {
+        signIn: '/add',
     }
 }
