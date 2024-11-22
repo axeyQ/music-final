@@ -24,7 +24,7 @@ export const MenuItem = ({
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white">
-        {item}
+        <Image src={item} alt="user" width={100} height={100} className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"/>
       </motion.p>
       {active !== null && (
         <motion.div
