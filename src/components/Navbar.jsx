@@ -40,7 +40,7 @@ function Navbar({
     {
       id: 1,
       name: "Login Required",
-      designation: "Login to Contribute",
+      designation: "Click on Contribute to Login",
       image:
         "/images/newRed.png",
     },]
