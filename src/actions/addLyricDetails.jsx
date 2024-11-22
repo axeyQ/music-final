@@ -10,6 +10,16 @@ const AddLyricDetails = async (formData) => {
     const images = formData
     .getAll('images').filter((image)=>image.name !=='');
 
+    // Helper function to collect numbered URLs
+    const collectNumberedUrls = (prefix, maxCount = 4) => {
+        const urls = [];
+        for (let i = 1; i <= maxCount; i++) {
+            const url = formData.get(`${prefix}${i}`);
+            if (url) urls.push(url);
+        }
+        return urls;
+    };
+
     const musicData={
         title: formData.get('title'),
         artist: formData.get('artist'),
@@ -18,6 +28,11 @@ const AddLyricDetails = async (formData) => {
         releaseYear: formData.get('releaseYear'),
         duration: formData.get('duration'),
         lyrics: formData.get('lyrics'),
+        musicVideo: formData.get('musicVideo'),
+        karaokeUrls: collectNumberedUrls('karaokeUrl'),
+        danceUrls: collectNumberedUrls('danceUrl'),
+        coverUrls: collectNumberedUrls('coverUrl'),
+        instrumentalUrls: collectNumberedUrls('instrumentalUrl'),
     }
 
     const imageUrls = [];

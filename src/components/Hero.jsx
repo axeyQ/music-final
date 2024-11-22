@@ -19,7 +19,7 @@ export function Hero() {
           ease: "easeInOut",
         }}
         className=" relative flex flex-col gap-4 items-center justify-center px-4">
-        <div className=" text-8xl md:text-8xl font-bold relative leading-5 z-10 dark:text-white text-center">
+        <div className=" text-4xl md:text-8xl font-bold relative md:leading-2 leading-0 z-10 dark:text-white text-center">
           Search Trending Music, Lyrics<br/>and Much More
           <PlayAnimation />
         </div>

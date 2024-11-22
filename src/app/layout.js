@@ -3,6 +3,7 @@ import "./globals.css";
 import { NavbarMain } from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
 import { Poppins } from "next/font/google";
+import AuthProvider from "@/components/AuthProvider";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -18,6 +19,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+      <AuthProvider>
     <html lang="en">
       <body
         className={`${poppins.className} antialiased bg-zinc-900`}
@@ -26,7 +28,8 @@ export default function RootLayout({ children }) {
       <NavbarMain className=" bg-slate-600"/>
       <Toaster position="top-center" />
         {children}
-      </body>
+        </body>
     </html>
+      </AuthProvider>
   );
 }

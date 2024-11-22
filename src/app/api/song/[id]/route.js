@@ -3,7 +3,7 @@ import connectDB from "../../../../../config/database";
 
 
 export async function GET(req, { params }) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     await connectDB();

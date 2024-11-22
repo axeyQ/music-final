@@ -138,7 +138,7 @@ export function NetflixTypeMusicCard({music}) {
           layoutId={`card-${music.title}-${id}`}
           key={music.title}
           onClick={() => setActive(music)}
-          className="p-4 flex flex-col  rounded-xl cursor-pointer">
+          className="md:p-4 p-2 flex flex-col  rounded-xl cursor-pointer">
           <div className="flex gap-4 flex-col  w-full relative group bg-black bg-opacity-100 ">
             <motion.div layoutId={`image-${music.title}-${id}`}>
               <Image

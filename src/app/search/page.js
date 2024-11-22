@@ -40,10 +40,9 @@ export default function SearchComponent() {
   };
 
   return (
-    <div className="bg-black min-h-screen text-white">
-      <h1 className="text-4xl font-bold text-center py-10">Music Search</h1>
+    <div className="bg-black min-h-screen text-white py-24">
       <SearchInput onSearch={handleSearch} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 p-8">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 p-1 md:p-8">
         {filteredMusic.length === 0 ? (
           <p className="col-span-full text-center text-lg text-gray-400">
             No results found
