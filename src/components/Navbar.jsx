@@ -39,7 +39,7 @@ function Navbar({
           <Link className="text-white" href="/add"><h1 className="md:text-lg text-sm">Contribute</h1></Link>
         ) : (
           providers && Object.values(providers).map((provider) => (
-            <button className="text-white" key={provider.id} onClick={()=>signIn(provider.id)}><h1 className="md:text-lg text-sm">Login</h1></button>
+            <button className="text-white" key={provider.id} onClick={()=>signIn(provider.id)}><h1 className="md:text-lg text-sm">Contribute</h1></button>
           ))
         )}
 
