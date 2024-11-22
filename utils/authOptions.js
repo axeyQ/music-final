@@ -45,8 +45,5 @@ export const authOptions = {
             // 3. Return session
             return session;
         }
-    },
-    pages: {
-        signIn: '/add',
     }
 }

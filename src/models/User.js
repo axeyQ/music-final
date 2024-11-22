@@ -20,6 +20,16 @@ const UserSchema = new Schema({
     timestamps:true
 });
 
+UserSchema.virtual('musicDetails', {
+  ref: 'MusicDetails',
+  localField: '_id',
+  foreignField: 'owner'
+});
+
+// Make sure to enable virtuals if you add this
+UserSchema.set('toJSON', { virtuals: true });
+UserSchema.set('toObject', { virtuals: true });
+
 const User = models.User || model('User', UserSchema);
 
 export default User;

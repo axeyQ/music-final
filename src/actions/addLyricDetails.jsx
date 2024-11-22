@@ -5,22 +5,39 @@ import connectDB from "../../config/database"
 import MusicDetails from "@/models/MusicDetails";
 import cloudinary from "../../config/cloudinary";
 import sharp from "sharp";
+import { getSessionUser } from "../../utils/getSessionUser";
+import { revalidatePath } from "next/cache";
+
 const AddLyricDetails = async (formData) => {
     await connectDB();
+
+    const sessionUser = await getSessionUser();
+    if(!sessionUser || !sessionUser.userId) throw new Error("User not logged in");
+
+    const {userId} = getSessionUser;
     const images = formData
     .getAll('images').filter((image)=>image.name !=='');
 
     // Helper function to collect numbered URLs
     const collectNumberedUrls = (prefix, maxCount = 4) => {
-        const urls = [];
-        for (let i = 1; i <= maxCount; i++) {
-            const url = formData.get(`${prefix}${i}`);
-            if (url) urls.push(url);
+        try {
+            const urls = [];
+            for (let i = 1; i <= maxCount; i++) {
+                const url = formData.get(`${prefix}${i}`);
+                if (url && url.trim() !== '') {
+                    urls.push(url.trim());
+                }
+            }
+            console.log(`✅ Successfully collected ${prefix} URLs:`, urls);
+            return urls;
+        } catch (error) {
+            console.error(`❌ Error collecting ${prefix} URLs:`, error);
+            return [];
         }
-        return urls;
     };
 
-    const musicData={
+    const musicData = {
+      owner:userId,
         title: formData.get('title'),
         artist: formData.get('artist'),
         album: formData.get('album'),
@@ -29,11 +46,19 @@ const AddLyricDetails = async (formData) => {
         duration: formData.get('duration'),
         lyrics: formData.get('lyrics'),
         musicVideo: formData.get('musicVideo'),
-        karaokeUrls: collectNumberedUrls('karaokeUrl'),
-        danceUrls: collectNumberedUrls('danceUrl'),
-        coverUrls: collectNumberedUrls('coverUrl'),
-        instrumentalUrls: collectNumberedUrls('instrumentalUrl'),
+        karaoke: collectNumberedUrls('karaokeUrl'),
+        dance: collectNumberedUrls('danceUrl'),
+        covers: collectNumberedUrls('coverUrl'),
+        instrumentals: collectNumberedUrls('instrumentalUrl'),
     }
+
+    // Add debug logging
+    console.log('Music Data URLs:', {
+        karaoke: musicData.karaoke,
+        dance: musicData.dance,
+        covers: musicData.covers,
+        instrumentals: musicData.instrumentals
+    });
 
     const imageUrls = [];
 
@@ -77,6 +102,7 @@ const AddLyricDetails = async (formData) => {
     const newMusicDetails = new MusicDetails(musicData);
     await newMusicDetails.save();
     console.log('New Music ID:', newMusicDetails._id);
+    revalidatePath('/','layout');
     redirect(`/lyrics/${newMusicDetails._id}`)
 }
  

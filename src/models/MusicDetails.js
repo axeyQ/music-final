@@ -1,4 +1,4 @@
-const { Schema, model, models } = require("mongoose");
+const { Schema, model, models, default: mongoose } = require("mongoose");
 const lyricsSchema = new Schema({
     section: {
       type: String,
@@ -9,6 +9,11 @@ const lyricsSchema = new Schema({
   });
   
 const MusicDetailsSchema = new Schema({
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
     title:{
         type: String,
     },
