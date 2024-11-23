@@ -14,7 +14,7 @@ const AddLyricDetails = async (formData) => {
     const sessionUser = await getSessionUser();
     if(!sessionUser || !sessionUser.userId) throw new Error("User not logged in");
 
-    const {userId} = getSessionUser;
+    const userId = sessionUser.userId;
     const images = formData
     .getAll('images').filter((image)=>image.name !=='');
 
