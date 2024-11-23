@@ -10,119 +10,90 @@ import { revalidatePath } from "next/cache";
 
 const AddLyricDetails = async (formData) => {
     try {
+        // Validate formData first
+        if (!formData) {
+            throw new Error("No form data provided");
+        }
+
         await connectDB();
-        console.log('✅ Database connected');
-
+        
         const sessionUser = await getSessionUser();
-        console.log('Session user:', sessionUser); // Debug log
-
-        if (!sessionUser) {
-            throw new Error("No session user found");
+        if (!sessionUser?.userId) {
+            return { error: "Authentication required" }; // Return error instead of throwing
         }
 
-        if (!sessionUser.userId) {
-            throw new Error("No userId in session user");
+        const images = formData.getAll('images');
+        if (!images || !Array.isArray(images)) {
+            console.error('Invalid images data:', images);
+            return { error: "Invalid image data" };
         }
 
-        const userId = sessionUser.userId;
-        console.log('User ID:', userId); // Debug log
+        const filteredImages = images.filter(image => 
+            image && image.name !== '' && image instanceof File
+        );
 
-        const images = formData
-            .getAll('images')
-            .filter((image) => image.name !== '');
-        console.log('Number of images:', images.length); // Debug log
-
-        // Helper function to collect numbered URLs
-        const collectNumberedUrls = (prefix, maxCount = 4) => {
-            try {
-                const urls = [];
-                for (let i = 1; i <= maxCount; i++) {
-                    const url = formData.get(`${prefix}${i}`);
-                    if (url && url.trim() !== '') {
-                        urls.push(url.trim());
-                    }
-                }
-                console.log(`✅ Successfully collected ${prefix} URLs:`, urls);
-                return urls;
-            } catch (error) {
-                console.error(`❌ Error collecting ${prefix} URLs:`, error);
-                return [];
-            }
-        };
-
+        // Create music data without images first
         const musicData = {
-          owner:userId,
-            title: formData.get('title'),
-            artist: formData.get('artist'),
-            album: formData.get('album'),
-            genre: formData.get('genre'),
-            releaseYear: formData.get('releaseYear'),
-            duration: formData.get('duration'),
-            lyrics: formData.get('lyrics'),
-            musicVideo: formData.get('musicVideo'),
+            owner: sessionUser.userId,
+            title: formData.get('title')?.toString() || '',
+            artist: formData.get('artist')?.toString() || '',
+            album: formData.get('album')?.toString() || '',
+            genre: formData.get('genre')?.toString() || '',
+            releaseYear: formData.get('releaseYear')?.toString() || '',
+            duration: formData.get('duration')?.toString() || '',
+            lyrics: formData.get('lyrics')?.toString() || '',
+            musicVideo: formData.get('musicVideo')?.toString() || '',
             karaoke: collectNumberedUrls('karaokeUrl'),
             dance: collectNumberedUrls('danceUrl'),
             covers: collectNumberedUrls('coverUrl'),
             instrumentals: collectNumberedUrls('instrumentalUrl'),
-        }
+            images: [] // Initialize empty array
+        };
 
-        // Add debug logging
-        console.log('Music Data URLs:', {
-            karaoke: musicData.karaoke,
-            dance: musicData.dance,
-            covers: musicData.covers,
-            instrumentals: musicData.instrumentals
-        });
-
-        const imageUrls = [];
-
-        for (const imageFile of images){
-            const imageBuffer = await imageFile.arrayBuffer();
-            const imageArray = Array.from(new Uint8Array(imageBuffer));
-            const imageData = Buffer.from(imageArray);
-
-
-            const compressedImageBuffer = await sharp(imageData)
-            .resize({ width: 1024 }) // Resize to 1024px width (or adjust as needed)
-            .jpeg({ quality: 80 })   // Reduce quality to 80%
-            .toBuffer();
-            // Convert to base64
-            const imageBase64 = compressedImageBuffer.toString('base64');
-            console.log("Base64 Image Data Preview:", imageBase64.substring(0, 100) + "..."); // Log the first 100 characters
-            cloudinary.api.resources({ max_results: 1 }, (error, result) => {
-                if (error) {
-                  console.error("Cloudinary Configuration Test Failed:", error);
-                } else {
-                  console.log("Cloudinary Configuration Test Succeeded:", result);
-                }
-              });
-            // Make request to cloudinary
+        // Handle image uploads separately
+        if (filteredImages.length > 0) {
             try {
-                const result = await cloudinary.uploader.upload(
-                  `data:image/jpg;base64,${imageBase64}`,
-                  { folder: "musify",timeout: 60000, }
-                );
-                imageUrls.push(result.secure_url);
-              } catch (error) {
-                console.error("Cloudinary Upload Error Details:", error);
-                if (error.response) {
-                  console.error("Cloudinary Error Response:", error.response); // Captures Cloudinary's error message
-                }
-                throw new Error("Image upload failed: " + error.message);
-              }
+                const imageUrls = await Promise.all(
+                    filteredImages.map(async (imageFile) => {
+                        const imageBuffer = await imageFile.arrayBuffer();
+                        const imageArray = Array.from(new Uint8Array(imageBuffer));
+                        const imageData = Buffer.from(imageArray);
 
+                        const compressedImageBuffer = await sharp(imageData)
+                            .resize({ width: 1024 })
+                            .jpeg({ quality: 80 })
+                            .toBuffer();
+
+                        const imageBase64 = compressedImageBuffer.toString('base64');
+                        
+                        const result = await cloudinary.uploader.upload(
+                            `data:image/jpeg;base64,${imageBase64}`,
+                            { 
+                                folder: "musify",
+                                timeout: 60000,
+                            }
+                        );
+                        return result.secure_url;
+                    })
+                );
+                musicData.images = imageUrls;
+            } catch (uploadError) {
+                console.error('Image upload error:', uploadError);
+                return { error: "Failed to upload images" };
+            }
         }
-        musicData.images = imageUrls;
+
+        // Save to database
         const newMusicDetails = new MusicDetails(musicData);
         await newMusicDetails.save();
-        console.log('New Music ID:', newMusicDetails._id);
-        revalidatePath('/','layout');
-        redirect(`/lyrics/${newMusicDetails._id}`)
+
+        revalidatePath('/', 'layout');
+        return { success: true, id: newMusicDetails._id };
+
     } catch (error) {
         console.error('AddLyricDetails Error:', error);
-        console.error('Error stack:', error.stack);
-        throw error; // Re-throw to maintain error handling
+        return { error: error.message || "An unexpected error occurred" };
     }
 }
- 
+
 export default AddLyricDetails;
