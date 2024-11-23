@@ -8,111 +8,62 @@ import sharp from "sharp";
 import { getSessionUser } from "../../utils/getSessionUser";
 import { revalidatePath } from "next/cache";
 
-const AddLyricDetails = async (formData) => {
+export async function AddLyricDetails(formData) {
     try {
-        // Validate formData first
-        if (!formData) {
-            console.error('No form data provided');
-            return { error: "No form data provided" };
+        // Connect to database
+        await connectDB();
+
+        // Verify session
+        const session = await getSessionUser();
+        if (!session?.userId) {
+            throw new Error('Unauthorized');
         }
 
-        try {
-            await connectDB();
-        } catch (dbError) {
-            console.error('Database connection error:', dbError);
-            return { error: "Database connection failed" };
-        }
-        
-        let sessionUser;
-        try {
-            sessionUser = await getSessionUser();
-        } catch (sessionError) {
-            console.error('Session error:', sessionError);
-            return { error: "Session verification failed" };
-        }
-
-        if (!sessionUser?.userId) {
-            console.error('No user ID found in session');
-            return { error: "Authentication required" };
-        }
-
-        // Validate required fields
-        const title = formData.get('title')?.toString();
-        const artist = formData.get('artist')?.toString();
-        
-        if (!title || !artist) {
-            return { error: "Title and artist are required" };
-        }
-
+        // Extract form data
         const musicData = {
-            owner: sessionUser.userId,
-            title,
-            artist,
-            album: formData.get('album')?.toString() || '',
-            genre: formData.get('genre')?.toString() || '',
-            releaseYear: formData.get('releaseYear')?.toString() || '',
-            duration: formData.get('duration')?.toString() || '',
-            lyrics: formData.get('lyrics')?.toString() || '',
-            musicVideo: formData.get('musicVideo')?.toString() || '',
-            images: [] // Initialize empty array
+            owner: session.userId,
+            title: formData.get('title'),
+            artist: formData.get('artist'),
+            album: formData.get('album'),
+            genre: formData.get('genre'),
+            releaseYear: formData.get('releaseYear'),
+            duration: formData.get('duration'),
+            lyrics: formData.get('lyrics'),
+            musicVideo: formData.get('musicVideo'),
+            images: []
         };
 
-        // Handle image upload only if there are images
-        const images = formData.getAll('images');
-        const filteredImages = images.filter(image => 
-            image && image.name !== '' && image instanceof File
-        );
-
-        if (filteredImages.length > 0) {
-            try {
-                const imageUrls = await Promise.all(
-                    filteredImages.map(async (imageFile) => {
-                        // Validate file size
-                        if (imageFile.size > 5 * 1024 * 1024) { // 5MB limit
-                            throw new Error('Image file too large');
+        // Handle image uploads if any
+        const imageFiles = formData.getAll('images');
+        if (imageFiles.length > 0) {
+            const uploadPromises = imageFiles
+                .filter(file => file.size > 0)
+                .map(async (file) => {
+                    const bytes = await file.arrayBuffer();
+                    const buffer = Buffer.from(bytes);
+                    
+                    const result = await cloudinary.uploader.upload(
+                        `data:${file.type};base64,${buffer.toString('base64')}`,
+                        {
+                            folder: 'musify',
                         }
+                    );
+                    return result.secure_url;
+                });
 
-                        const imageBuffer = await imageFile.arrayBuffer();
-                        const imageArray = Array.from(new Uint8Array(imageBuffer));
-                        const imageData = Buffer.from(imageArray);
-
-                        const compressedImageBuffer = await sharp(imageData)
-                            .resize({ width: 1024 })
-                            .jpeg({ quality: 80 })
-                            .toBuffer();
-
-                        const imageBase64 = compressedImageBuffer.toString('base64');
-                        
-                        return await cloudinary.uploader.upload(
-                            `data:image/jpeg;base64,${imageBase64}`,
-                            { 
-                                folder: "musify",
-                                timeout: 120000, // Increased timeout
-                            }
-                        );
-                    })
-                );
-                musicData.images = imageUrls.map(result => result.secure_url);
-            } catch (uploadError) {
-                console.error('Image upload error:', uploadError);
-                return { error: "Failed to upload images: " + uploadError.message };
-            }
+            musicData.images = await Promise.all(uploadPromises);
         }
 
-        try {
-            const newMusicDetails = new MusicDetails(musicData);
-            await newMusicDetails.save();
-            revalidatePath('/', 'layout');
-            return { success: true, id: newMusicDetails._id };
-        } catch (saveError) {
-            console.error('Database save error:', saveError);
-            return { error: "Failed to save music details" };
-        }
-
+        // Save to database
+        const newMusic = await MusicDetails.create(musicData);
+        
+        // Revalidate the path
+        revalidatePath('/');
+        
+        return { success: true, id: newMusic._id };
+        
     } catch (error) {
-        console.error('AddLyricDetails Error:', error);
-        return { error: "An unexpected error occurred: " + error.message };
+        console.error('Server Action Error:', error);
+        throw new Error('Failed to add music details');
     }
 }
-
-export default AddLyricDetails;
