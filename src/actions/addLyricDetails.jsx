@@ -12,9 +12,9 @@ const AddLyricDetails = async (formData) => {
     await connectDB();
 
     const sessionUser = await getSessionUser();
-    if(!sessionUser || !sessionUser.userId) throw new Error("User not logged in");
+    if(!sessionUser || !sessionUser.userId) throw new Error("User ID is required");
 
-    const {userId} = getSessionUser;
+    const {userId} = sessionUser;
     const images = formData
     .getAll('images').filter((image)=>image.name !=='');
 
@@ -37,7 +37,7 @@ const AddLyricDetails = async (formData) => {
     };
 
     const musicData = {
-      owner:userId,
+        owner:userId,
         title: formData.get('title'),
         artist: formData.get('artist'),
         album: formData.get('album'),
@@ -51,6 +51,8 @@ const AddLyricDetails = async (formData) => {
         covers: collectNumberedUrls('coverUrl'),
         instrumentals: collectNumberedUrls('instrumentalUrl'),
     }
+
+    console.log("Here is the music data",musicData);
 
     // Add debug logging
     console.log('Music Data URLs:', {
@@ -74,7 +76,6 @@ const AddLyricDetails = async (formData) => {
         .toBuffer();
         // Convert to base64
         const imageBase64 = compressedImageBuffer.toString('base64');
-        console.log("Base64 Image Data Preview:", imageBase64.substring(0, 100) + "..."); // Log the first 100 characters
         cloudinary.api.resources({ max_results: 1 }, (error, result) => {
             if (error) {
               console.error("Cloudinary Configuration Test Failed:", error);
@@ -86,11 +87,10 @@ const AddLyricDetails = async (formData) => {
         try {
             const result = await cloudinary.uploader.upload(
               `data:image/jpg;base64,${imageBase64}`,
-              { folder: "musify",timeout: 60000, }
+              { folder: "musify"}
             );
             imageUrls.push(result.secure_url);
           } catch (error) {
-            console.error("Cloudinary Upload Error Details:", error);
             if (error.response) {
               console.error("Cloudinary Error Response:", error.response); // Captures Cloudinary's error message
             }

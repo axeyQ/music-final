@@ -26,9 +26,7 @@ UserSchema.virtual('musicDetails', {
   foreignField: 'owner'
 });
 
-// Make sure to enable virtuals if you add this
-UserSchema.set('toJSON', { virtuals: true });
-UserSchema.set('toObject', { virtuals: true });
+
 
 const User = models.User || model('User', UserSchema);
 

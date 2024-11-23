@@ -73,7 +73,7 @@ function Navbar({
 
     <MenuItem setActive={setActive} active={active} item={profileImage}>
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/add">Your Profile</HoveredLink>
+            <HoveredLink href="/profile">Your Profile</HoveredLink>
             <HoveredLink href="#" onClick={() => signOut()}>Log Out</HoveredLink>
           </div>
         </MenuItem>
