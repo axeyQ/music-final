@@ -12,49 +12,66 @@ const AddLyricDetails = async (formData) => {
     try {
         // Validate formData first
         if (!formData) {
-            throw new Error("No form data provided");
+            console.error('No form data provided');
+            return { error: "No form data provided" };
         }
 
-        await connectDB();
+        try {
+            await connectDB();
+        } catch (dbError) {
+            console.error('Database connection error:', dbError);
+            return { error: "Database connection failed" };
+        }
         
-        const sessionUser = await getSessionUser();
+        let sessionUser;
+        try {
+            sessionUser = await getSessionUser();
+        } catch (sessionError) {
+            console.error('Session error:', sessionError);
+            return { error: "Session verification failed" };
+        }
+
         if (!sessionUser?.userId) {
-            return { error: "Authentication required" }; // Return error instead of throwing
+            console.error('No user ID found in session');
+            return { error: "Authentication required" };
         }
 
-        const images = formData.getAll('images');
-        if (!images || !Array.isArray(images)) {
-            console.error('Invalid images data:', images);
-            return { error: "Invalid image data" };
+        // Validate required fields
+        const title = formData.get('title')?.toString();
+        const artist = formData.get('artist')?.toString();
+        
+        if (!title || !artist) {
+            return { error: "Title and artist are required" };
         }
 
-        const filteredImages = images.filter(image => 
-            image && image.name !== '' && image instanceof File
-        );
-
-        // Create music data without images first
         const musicData = {
             owner: sessionUser.userId,
-            title: formData.get('title')?.toString() || '',
-            artist: formData.get('artist')?.toString() || '',
+            title,
+            artist,
             album: formData.get('album')?.toString() || '',
             genre: formData.get('genre')?.toString() || '',
             releaseYear: formData.get('releaseYear')?.toString() || '',
             duration: formData.get('duration')?.toString() || '',
             lyrics: formData.get('lyrics')?.toString() || '',
             musicVideo: formData.get('musicVideo')?.toString() || '',
-            karaoke: collectNumberedUrls('karaokeUrl'),
-            dance: collectNumberedUrls('danceUrl'),
-            covers: collectNumberedUrls('coverUrl'),
-            instrumentals: collectNumberedUrls('instrumentalUrl'),
             images: [] // Initialize empty array
         };
 
-        // Handle image uploads separately
+        // Handle image upload only if there are images
+        const images = formData.getAll('images');
+        const filteredImages = images.filter(image => 
+            image && image.name !== '' && image instanceof File
+        );
+
         if (filteredImages.length > 0) {
             try {
                 const imageUrls = await Promise.all(
                     filteredImages.map(async (imageFile) => {
+                        // Validate file size
+                        if (imageFile.size > 5 * 1024 * 1024) { // 5MB limit
+                            throw new Error('Image file too large');
+                        }
+
                         const imageBuffer = await imageFile.arrayBuffer();
                         const imageArray = Array.from(new Uint8Array(imageBuffer));
                         const imageData = Buffer.from(imageArray);
@@ -66,33 +83,35 @@ const AddLyricDetails = async (formData) => {
 
                         const imageBase64 = compressedImageBuffer.toString('base64');
                         
-                        const result = await cloudinary.uploader.upload(
+                        return await cloudinary.uploader.upload(
                             `data:image/jpeg;base64,${imageBase64}`,
                             { 
                                 folder: "musify",
-                                timeout: 60000,
+                                timeout: 120000, // Increased timeout
                             }
                         );
-                        return result.secure_url;
                     })
                 );
-                musicData.images = imageUrls;
+                musicData.images = imageUrls.map(result => result.secure_url);
             } catch (uploadError) {
                 console.error('Image upload error:', uploadError);
-                return { error: "Failed to upload images" };
+                return { error: "Failed to upload images: " + uploadError.message };
             }
         }
 
-        // Save to database
-        const newMusicDetails = new MusicDetails(musicData);
-        await newMusicDetails.save();
-
-        revalidatePath('/', 'layout');
-        return { success: true, id: newMusicDetails._id };
+        try {
+            const newMusicDetails = new MusicDetails(musicData);
+            await newMusicDetails.save();
+            revalidatePath('/', 'layout');
+            return { success: true, id: newMusicDetails._id };
+        } catch (saveError) {
+            console.error('Database save error:', saveError);
+            return { error: "Failed to save music details" };
+        }
 
     } catch (error) {
         console.error('AddLyricDetails Error:', error);
-        return { error: error.message || "An unexpected error occurred" };
+        return { error: "An unexpected error occurred: " + error.message };
     }
 }
 
