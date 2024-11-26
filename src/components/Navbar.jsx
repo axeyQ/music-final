@@ -1,4 +1,4 @@
-"use client";
+"use client"; ///Use client to use the useEffect hook
 import { useEffect, useState } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu";
 import { cn } from "@/lib/utils";
