@@ -4,6 +4,7 @@ import { NavbarMain } from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
 import { Poppins } from "next/font/google";
 import AuthProvider from "@/components/AuthProvider";
+import Adsense1 from "@/components/Adsense1";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -21,6 +22,9 @@ export default function RootLayout({ children }) {
   return (
       <AuthProvider>
     <html lang="en">
+    <head>
+      <Adsense1 pId="5230983184187192" />
+    </head>
       <body
         className={`${poppins.className} antialiased bg-zinc-900`}
       >

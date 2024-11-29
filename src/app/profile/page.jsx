@@ -4,6 +4,7 @@ import { getSessionUser } from "../../../utils/getSessionUser";
 import MusicDetails from "@/models/MusicDetails";
 import ProfileTable from "@/components/ProfileTable";
 import User from "@/models/User";
+import { convertToSerializeObject } from "../../../utils/convertToObject";
 
 const ProfilePage = async () => {
     await connectDB();
@@ -15,15 +16,7 @@ const ProfilePage = async () => {
     const userLogin = await User.findById(userId).lean();
     
     const musics = await MusicDetails.find({owner: userId}).lean();
-    const tableContent = musics.map(music => ({
-        _id: music._id,
-        title: music.title,
-        createdAt: music.createdAt,
-        instrumentals: music.instrumentals?.length === 0 ? "0" : music.instrumentals?.length,
-        karaoke: music.karaoke?.length === 0 ? "0" : music.karaoke?.length,
-        dance: music.dance?.length === 0 ? "0" : music.dance?.length,
-        covers: music.covers?.length === 0 ? "0" : music.covers?.length
-    }));
+    const tableContent = musics.map(convertToSerializeObject);
 
     return (
         <div className="w-full p-6 pt-36">
@@ -58,7 +51,7 @@ const ProfilePage = async () => {
                         {`Total Contributions: ${tableContent.length}`}
                         </p>
                         <p className="text-gray-600 text-sm">
-                        {`Total Earnings: $0`}
+                        {`Total Earnings: ₹0`}
                         </p>
                     </div>
                 </div>
