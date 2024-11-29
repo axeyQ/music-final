@@ -11,8 +11,11 @@ const connectDB = async () =>{
     }
 
     try {
-        const tenten=await mongoose.connect(process.env.MONGODB_URI);
-        console.log("dddd",tenten.connections[0].collection())
+        await mongoose.connect(process.env.MONGODB_URI,{
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 5000,
+            connectTimeoutMS: 5000,
+        });
         connected = true;
     }
     catch (error) {
