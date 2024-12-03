@@ -13,7 +13,7 @@ const Home =async ()=> {
 <>
   <Hero/>
   <AppleCardsCarousel music={musicDetails} />
-       <h1 className="text-white text-5xl font-bold text-center m-5">Enjoy the music from the large collection</h1>
+       <h1 className="text-white lg:text-5xl text-2xl font-bold text-center m-5">Enjoy the music from the large collection</h1>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 p-8 rounded-sm">
        
         {musicDetails.length === 0 ? (

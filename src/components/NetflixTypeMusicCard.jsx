@@ -146,7 +146,7 @@ export function NetflixTypeMusicCard({music}) {
                 height={250}
                 src={music.images[0]}
                 alt={music.title}
-                className="h-60 w-full  rounded-lg object-cover object-top" />
+                className="lg:h-60 h-full w-full  rounded-lg object-cover object-top" />
             </motion.div>
             <div className="flex justify-center items-center flex-col absolute inset-0 bg-black bg-opacity-60 opacity-60 group-hover:opacity-0 transition-opacity duration-300"></div>
             <div className="flex justify-center items-center flex-col absolute inset-0 bg-black bg-opacity-80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
