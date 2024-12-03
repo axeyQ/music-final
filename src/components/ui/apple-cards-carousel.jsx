@@ -209,7 +209,7 @@ export const Card = ({
             <div className="py-10">
             <div
           className="bg-[#F5F5F7] p-8 md:p-14 rounded-3xl mb-4">
-          <div className="flex justify-between items-center gap-4">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
 
           <Image
             src={card.images[0]}
