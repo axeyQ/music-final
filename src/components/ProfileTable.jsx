@@ -1,8 +1,10 @@
 'use client';
 import deleteLyricDetails from "@/actions/deleteLyricDetails";
+import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const ProfileTable = ({table}) => {
+    const [music,setMusic] = useState(table);
     const handleEdit = (id) => {
         // Add your edit logic here
         console.log('Edit clicked for id:', id);
@@ -14,6 +16,8 @@ const ProfileTable = ({table}) => {
             return;
         }
         await deleteLyricDetails(id);
+        const updatedMusic = music.filter((item) => item._id !== id);
+        setMusic(updatedMusic);
     };
 
     return(
@@ -30,14 +34,14 @@ const ProfileTable = ({table}) => {
                         <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider hover:bg-gray-100 transition-colors">Covers</th>
                         <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider hover:bg-gray-100 transition-colors">Status</th>
                         <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider hover:bg-gray-100 transition-colors">Earnings</th>
-                        <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider hover:bg-gray-100 transition-colors">Actions</th>
+                        {/* <th className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider hover:bg-gray-100 transition-colors">Actions</th> */}
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {table && table.map((row) => (
-                        <tr key={row._id} className="hover:bg-gray-50 transition-colors">
+                    {music && Array.isArray(music) && music.map((row, index) => (
+                        row && <tr key={row._id || index} className="hover:bg-gray-50 transition-colors">
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center font-medium">
-                                {row._id.toString().slice(-6)}
+                                {index + 1}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                 {row.createdAt ? new Intl.DateTimeFormat('en-US', {
@@ -71,7 +75,7 @@ const ProfileTable = ({table}) => {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900 font-medium">
                             ₹0
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                            {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
                                 <div className="flex justify-center space-x-2">
                                     <button 
                                         onClick={() => handleEdit(row._id)} 
@@ -86,7 +90,7 @@ const ProfileTable = ({table}) => {
                                         <FaTrash className="w-5 h-5" />
                                     </button>
                                 </div>
-                            </td>
+                            </td> */}
                         </tr>
                     ))}
                 </tbody>

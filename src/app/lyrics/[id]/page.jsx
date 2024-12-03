@@ -13,23 +13,23 @@ const SongDetails = async ({ params }) => {
     const song = res.data;
 
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center pt-24 px-40">
+      <div className="min-h-screen bg-black text-white flex flex-col items-center pt-lg-24 pt-24 px-5 px-lg-40 overflow-x-hidden">
       <ScrollHandler />
         <LyricsHeader song={song} />
         <div className="flex justify-start w-screen ">
 
-        <div className="w-full p-6 rounded-lg shadow-lg px-40 z-10">
+        <div className="w-full p-6 rounded-lg shadow-lg px-4 lg:px-40 z-10">
           <h2 className="text-2xl font-semibold mb-4">Lyrics</h2>
           <pre className="text-gray-300 whitespace-pre-wrap font-poppins">{song.lyrics}</pre>
         </div>
   <div></div>
         </div>
 
-        <div className="flex flex-col items-center w-screen p-20 gap-20">
-          <h1 className="text-6xl font-bold text-center">Can&apos;t Get Enough of this Awesome Song?</h1>
-        <div className="width-1/2 ">
+        <div className="flex flex-col items-center w-screen lg:p-20 p-5 gap-20">
+          <h1 className="lg:text-6xl text-2xl font-bold text-center">Can&apos;t Get Enough of this Awesome Song?</h1>
+        <div className=" lg:w-1/2 w-full ">
 
-          <h1 className="text-4xl font-bold text-center mb-10" id="music-video">Watch the Official Music Video</h1>
+          <h1 className="lg:text-4xl text-2xl font-bold text-center mb-10" id="music-video">Watch the Official Music Video</h1>
 
           <YoutubePlayer url={song.musicVideo} />
         </div>

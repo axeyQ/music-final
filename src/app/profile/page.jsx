@@ -16,13 +16,16 @@ const ProfilePage = async () => {
     const userLogin = await User.findById(userId).lean();
     
     const musics = await MusicDetails.find({owner: userId}).lean();
-    const tableContent = musics.map(convertToSerializeObject);
+    const tableContent = musics ? musics.map(music => ({
+        ...convertToSerializeObject(music),
+        _id: music._id.toString()
+    })) : [];
 
     return (
         <div className="w-full p-6 pt-36">
             <div className="bg-white shadow-lg rounded-lg p-6 ">
                 {/* Profile Header */}
-                <div className="flex items-center justify-between">
+                <div className="flex lg:flex-row flex-col lg:items-center items-start justify-between">
                 <div className="flex items-center space-x-6 mb-6 ">
                     
                 <div className="flex items-center space-x-6">
@@ -43,7 +46,7 @@ const ProfilePage = async () => {
                         </div>
                     </div>
                     </div>
-                    <div className="flex flex-col items-end">
+                    <div className="flex flex-col lg:items-end items-start">
                     <p className="text-gray-600 text-sm">
                         {`Registered On ${ new Date(userLogin.createdAt).toLocaleString()}`}  
                         </p>
