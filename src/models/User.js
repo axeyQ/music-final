@@ -13,6 +13,12 @@ const UserSchema = new Schema({
     },
     image:{
         type: String,
+    },
+    accessToken: {
+        type: String,
+    },
+    refreshToken: {
+        type: String,
     }
 
     

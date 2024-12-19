@@ -2,22 +2,57 @@
 import deleteLyricDetails from "@/actions/deleteLyricDetails";
 import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import createRequest from "@/actions/createRequest";
 
 const ProfileTable = ({table}) => {
-    const [music,setMusic] = useState(table);
-    const handleEdit = (id) => {
-        // Add your edit logic here
-        console.log('Edit clicked for id:', id);
+    const initialData = Array.isArray(table) ? 
+        table.map(item => ({
+            ...item,
+            _id: item._id.toString(),
+            createdAt: item.createdAt ? item.createdAt.toString() : null,
+            instrumentals: Array.isArray(item.instrumentals) ? item.instrumentals : [],
+            karaoke: Array.isArray(item.karaoke) ? item.karaoke : [],
+            dance: Array.isArray(item.dance) ? item.dance : [],
+            covers: Array.isArray(item.covers) ? item.covers : []
+        })) 
+        : [];
+
+    const [music, setMusic] = useState(initialData);
+    const { data: session } = useSession();
+
+    const handleEdit = async (songId) => {
+        try {
+            const request = await createRequest({
+                userId: session?.user?.id,
+                songId: songId,
+                requestType: 'EDIT',
+                message: 'Request to edit song'
+            });
+            alert('Edit request submitted successfully');
+        } catch (error) {
+            console.error('Error creating edit request:', error);
+            alert('Failed to submit edit request');
+        }
     };
 
-    const handleDelete = async (id) => {
-        const confirmed = window.confirm('Are you sure you want to delete this song?');
+    const handleDelete = async (songId) => {
+        const confirmed = window.confirm('Are you sure you want to request deletion of this song?');
         if (!confirmed) {
             return;
         }
-        await deleteLyricDetails(id);
-        const updatedMusic = music.filter((item) => item._id !== id);
-        setMusic(updatedMusic);
+        try {
+            const request = await createRequest({
+                userId: session?.user?.id,
+                songId: songId,
+                requestType: 'DELETE',
+                message: 'Request to delete song'
+            });
+            alert('Delete request submitted successfully');
+        } catch (error) {
+            console.error('Error creating delete request:', error);
+            alert('Failed to submit delete request');
+        }
     };
 
     return(
@@ -75,22 +110,22 @@ const ProfileTable = ({table}) => {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900 font-medium">
                             ₹0
                             </td>
-                            {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
                                 <div className="flex justify-center space-x-2">
                                     <button 
-                                        onClick={() => handleEdit(row._id)} 
                                         className="text-blue-600 hover:text-blue-800"
+                                        onClick={() => handleEdit(row._id)}
                                     >
                                         <FaEdit className="w-5 h-5" />
                                     </button>
                                     <button 
-                                        onClick={() => handleDelete(row._id)} 
                                         className="text-red-600 hover:text-red-800"
+                                        onClick={() => handleDelete(row._id)}
                                     >
                                         <FaTrash className="w-5 h-5" />
                                     </button>
                                 </div>
-                            </td> */}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

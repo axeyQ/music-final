@@ -10,14 +10,15 @@ export const authOptions = {
                 params: {
                     prompt: "consent",
                     access_type: "offline",
-                    response_type: "code"
+                    response_type: "code",
+                    scope: "https://www.googleapis.com/auth/adsense.readonly" // Add AdSense scope here
                 }
             }
         }),
     ],
     callbacks: {
         // Invoked when a user is authenticated
-        async signIn({profile}){       
+        async signIn({profile, account}){       
             // 1. Connect to the database
             await connectDB();
             // 2. Check if the user exists
@@ -29,8 +30,15 @@ export const authOptions = {
                 await User.create({
                     email: profile.email,
                     username,
-                    image: profile.picture
+                    image: profile.picture,
+                    accessToken: account.access_token, // Store access token
+                    refreshToken: account.refresh_token // Store refresh token
                 })
+            } else {
+                // Update existing user with new tokens
+                userExists.accessToken = account.access_token;
+                userExists.refreshToken = account.refresh_token;
+                await userExists.save();
             }
             // 4. Return true to allow sign in
             return true;
@@ -42,7 +50,10 @@ export const authOptions = {
             const user = await User.findOne({email: session.user.email});
             // 2. Assign user id from session
             session.user.id = user._id.toString();
-            // 3. Return session
+            // 3. Store access and refresh tokens in session if needed
+            session.user.accessToken = user.accessToken;
+            session.user.refreshToken = user.refreshToken;
+            // 4. Return session
             return session;
         }
     }
